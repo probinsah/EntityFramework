@@ -64,22 +64,6 @@
   },
   {
     "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
-    "Method": "CreateUser",
-    "RelativePath": "api/Users",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "user",
-        "Type": "DbOperationsWithEFCoreApp.Data.User",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
     "Method": "GetAllUsers",
     "RelativePath": "api/Users",
     "HttpMethod": "GET",
@@ -99,6 +83,70 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
+    "Method": "ForgetPassword",
+    "RelativePath": "api/Users/ForgetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "forgetPassword",
+        "Type": "DbOperationsWithEFCoreApp.Data.ForgetPassword",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
+    "Method": "Login",
+    "RelativePath": "api/Users/login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "DbOperationsWithEFCoreApp.Data.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Users/ResetPassword",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "resetPassword",
+        "Type": "DbOperationsWithEFCoreApp.Data.ResetPassword",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DbOperationsWithEFCoreApp.Controllers.UsersController",
+    "Method": "CreateUser",
+    "RelativePath": "api/Users/signup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "DbOperationsWithEFCoreApp.Data.User",
         "IsRequired": true
       }
     ],

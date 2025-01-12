@@ -40,7 +40,7 @@ namespace DbOperationsWithEFCoreApp.Controllers
             return Ok(result);
         }
         [HttpGet("data")]
-        public async Task<IActionResult> GetAllCurrencyDataByNameDescriptionAsync([FromQuery] string name, [FromQuery] string? description)
+        public async Task<IActionResult> GetAllCurrencyDataByNameDescriptionAsync([FromQuery] string name, [FromQuery] string description)
         {
             //var result = await _appDbContext.CurrencyTypes.Where(x => x.Currency == name && x.Description == description).FirstOrDefaultAsync();
             var result1 = await _appDbContext.CurrencyTypes.FirstOrDefaultAsync(x => x.Currency == name && (string.IsNullOrEmpty(description) || x.Description == description));
