@@ -167,3 +167,4 @@ D:\EntityFramework\EntityFramework\DbOperationsWithEFCoreApp\DbOperationsWithEFC
 D:\EntityFramework\EntityFramework\DbOperationsWithEFCoreApp\DbOperationsWithEFCoreApp\obj\Debug\net8.0\DbOperationsWithEFCoreApp.pdb
 D:\EntityFramework\EntityFramework\DbOperationsWithEFCoreApp\DbOperationsWithEFCoreApp\obj\Debug\net8.0\DbOperationsWithEFCoreApp.genruntimeconfig.cache
 D:\EntityFramework\EntityFramework\DbOperationsWithEFCoreApp\DbOperationsWithEFCoreApp\obj\Debug\net8.0\ref\DbOperationsWithEFCoreApp.dll
+D:\EntityFramework\EntityFramework\DbOperationsWithEFCoreApp\DbOperationsWithEFCoreApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

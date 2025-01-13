@@ -13,10 +13,12 @@ namespace DbOperationsWithEFCoreApp.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+        private readonly JWTTokenGenerator _jwtTokenGenerator;
 
-        public UsersController(AppDbContext appDbContext)
+        public UsersController(AppDbContext appDbContext, JWTTokenGenerator jwtTokenGenerator)
         {
             _appDbContext = appDbContext;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         [HttpGet]
@@ -64,8 +66,8 @@ namespace DbOperationsWithEFCoreApp.Controllers
                 }
 
                 var user = await _appDbContext.Users.FirstOrDefaultAsync(x => 
-                (!string.IsNullOrEmpty(login.Username) && x.Username == login.Username) || 
-                (!string.IsNullOrEmpty(login.EmailId) && x.Email == login.EmailId));
+                ((!string.IsNullOrEmpty(login.Username) && x.Username == login.Username) || 
+                (!string.IsNullOrEmpty(login.EmailId) && x.Email == login.EmailId)) && x.IsActive == true);
 
                 if(user == null)
                 {
@@ -77,13 +79,11 @@ namespace DbOperationsWithEFCoreApp.Controllers
                 {
                     return Unauthorized("Invalid Username/Email or Password.");
                 }
-
+                var token = _jwtTokenGenerator.GenerateToken(user.Id.ToString(), user.Username);
+                
                 return Ok(new
                 {
-                    Message = "Login Successfull",
-                    UserId = user.Id,
-                    Username = user.Username,
-                    EmailId = user.Email
+                    Token  = token
                 });
             }
             catch (Exception ex)
@@ -155,6 +155,34 @@ namespace DbOperationsWithEFCoreApp.Controllers
             {
                 return StatusCode(500, "Error Occur while updating user data-"+ex);
             }
+        }
+        [HttpPut("{userId}/profile")]
+        public async Task<IActionResult> UpdateUserProfile(int userId, [FromBody] UserProfile updatedProfile)
+        {
+            var profile = await _appDbContext.UserProfiles.FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (profile == null) return NotFound($"Profile for User ID {userId} not found.");
+
+            profile.Address = updatedProfile.Address;
+            profile.DateOfBirth = updatedProfile.DateOfBirth;
+            profile.ProfilePictureUrl = updatedProfile.ProfilePictureUrl;
+
+            _appDbContext.UserProfiles.Update(profile);
+            await _appDbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = _appDbContext.Users.Include(u => u.Profile).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null) return NotFound($"User ID {id} does not exist.");
+
+            _appDbContext.Remove(user);
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok("Successfully Deleted");
         }
     }
 }
